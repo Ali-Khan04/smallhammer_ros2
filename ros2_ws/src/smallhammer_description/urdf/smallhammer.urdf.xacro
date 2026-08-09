@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"
+       name="smallhammer">
+
+  <!-- Robot dimensions -->
+  <xacro:property name="j1_j2" value="0.0254"/>
+<xacro:property name="j2_j3" value="0.1143"/>
+
+  <!-- Base-->
+
+  <link name="base_link">
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+
+      <geometry>
+        <cylinder radius="0.055" length="0.04"/>
+      </geometry>
+
+      <material name="base_material">
+        <color rgba="0.2 0.2 0.2 1"/>
+      </material>
+    </visual>
+
+  </link>
+
+  <!-- J1: Base Rotation-->
+
+  <joint name="base_joint"
+         type="revolute">
+
+    <parent link="base_link"/>
+    <child link="link1"/>
+
+    <!-- J1 rotation axis is at the center of the base -->
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+
+    <!-- Vertical rotation axis -->
+    <axis xyz="0 0 1"/>
+
+    <limit
+      lower="-1.5708"
+      upper="1.5708"
+      effort="1"
+      velocity="1"/>
+
+  </joint>
+
+  <!-- Link 1-->
+
+  <link name="link1">
+
+ <visual>
+  <origin xyz="0 0 ${j1_j2/2}" rpy="0 0 0"/>
+
+  <geometry>
+    <box size="0.06 0.06 ${j1_j2}"/>
+  </geometry>
+
+  <material name="link1_material">
+    <color rgba="0.5 0.5 0.5 1"/>
+  </material>
+</visual>
+
+  </link>
+<!-- J2 shoulder -->
+<joint name="shoulder_joint" type="revolute">
+  <parent link="link1"/>
+  <child link="link2"/>
+
+  <!-- J2 is 1 inch above J1 -->
+  <origin xyz="0 0 ${j1_j2}" rpy="0 0 0"/>
+
+  <!-- Shoulder pitch axis -->
+  <axis xyz="0 1 0"/>
+
+  <limit
+    lower="-1.5708"
+    upper="1.5708"
+    effort="1"
+    velocity="1"/>
+</joint>
+
+<!-- Upper arm -->
+<link name="link2">
+  <visual>
+    <origin xyz="${j2_j3/2} 0 0" rpy="0 0 0"/>
+
+    <geometry>
+      <box size="${j2_j3} 0.04 0.04"/>
+    </geometry>
+
+    <material name="link2_material">
+      <color rgba="0.2 0.4 0.8 1"/>
+    </material>
+  </visual>
+</link>
+</robot>
