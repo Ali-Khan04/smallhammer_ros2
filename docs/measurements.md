@@ -6,6 +6,12 @@
 - Degrees of Freedom: 6
 - Servo Model: MG996R
 
+## Measurement Method
+
+Measurements were taken manually with the robot powered **off**.
+The arm was positioned in a flattened configuration by hand to simplify
+center-to-center link measurements.
+
 ## Link Lengths
 
 | Link | Length (in) | Length (mm) |
@@ -18,6 +24,5 @@
 
 ## Notes
 
-Measurements are center-to-center between joint axes.
-
-Initial calibration performed with all servos commanded to 90°.
+Measurements represent the approximate distance between adjacent joint
+rotation axes (center-to-center).
